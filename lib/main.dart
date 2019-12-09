@@ -19,13 +19,19 @@ void main() {
 }
 
 class App extends StatelessWidget {
-  final router = Router();
+  // final router = Router();
+
+   App() {
+    final router = Router();
+    Routes.configureRoutes(router);
+    Application.router = router;
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    Routes.configureRoutes(router);
-    Application.router = router;
+    // Routes.configureRoutes(router);
+    // Application.router = router;
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateRoute: Application.router.generator,
