@@ -150,9 +150,7 @@ class UserPageState extends State<UserPage> {
   }
 
   Widget UserIndexUI() {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        body: CustomScrollView(slivers: <Widget>[
+    return CustomScrollView(slivers: <Widget>[
           SliverAppBar(
             pinned: true,
             elevation: 0.0,
@@ -422,47 +420,13 @@ class UserPageState extends State<UserPage> {
               );
             }, childCount: tools.length),
           )
-        ]),
-        bottomNavigationBar: BottomNavigationBar(
-          items: navBottomItems,
-          currentIndex: 4,
-          onTap: _onItemTapped,
-          type: BottomNavigationBarType.fixed,
-        ));
+        ]);
   }
 
   @override
   Widget build(BuildContext context) {
-    switch (this._selectedIndex.toString()) {
-      case '0':
-        {
-          return HomePage();
-        }
-        break;
-      case '1':
-        {
-          return ClassifyIndex();
-        }
-        break;
-      case '2':
-        {
-          return FindPage();
-        }
-        break;
-      case '3':
-        {
-          return CartPage();
-        }
-        break;
-      case '4':
-        {
-          return UserIndexUI();
-        }
-        break;
-      default:
-        {
-          return UserIndexUI();
-        }
-    }
+    return Scaffold(
+      body: UserIndexUI(),
+    );
   }
 }

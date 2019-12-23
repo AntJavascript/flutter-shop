@@ -34,26 +34,17 @@ class FindPage extends StatefulWidget {
   FindPageState createState() => FindPageState();
 }
 
-class FindPageState extends State<FindPage> {
+class FindPageState extends State<FindPage> with AutomaticKeepAliveClientMixin<FindPage> {
+
+  @override
+  bool get wantKeepAlive => true;
+
   // 默认显示条数
   int _count = 0;
   List<ArticleListData> list = <ArticleListData>[]; // 列表
-  int _selectedIndex = 2;
 
   FindPageState();
 
-  void _onItemTapped(int index) {
-    if(index == 2) {
-      return;
-    }
-    if (index == 3) {
-      Application.router.navigateTo(context, "/cart");
-      return;
-    }
-    this.setState(() {
-      _selectedIndex = index;
-    });
-  }
 
   @override
   void initState() {
@@ -71,15 +62,7 @@ class FindPageState extends State<FindPage> {
   }
 
   Widget FindPageUI() {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          '发现',
-          style: TextStyle(color: Colors.white),
-        ),
-        centerTitle: true,
-      ),
-      body: EasyRefresh.custom(
+    return EasyRefresh.custom(
         header: MaterialHeader(),
         footer: MaterialFooter(),
         onRefresh: () async {
@@ -181,48 +164,21 @@ class FindPageState extends State<FindPage> {
             ),
           ),
         ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: navBottomItems,
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-      ),
-    );
+      );
   }
 
   @override
   Widget build(BuildContext context) {
-    switch (this._selectedIndex.toString()) {
-      case '0':
-        {
-          return HomePage();
-        }
-        break;
-      case '1':
-        {
-          return ClassifyIndex();
-        }
-        break;
-      case '2':
-        {
-          return FindPageUI();
-        }
-        break;
-      case '3':
-        {
-          return CartPage();
-        }
-        break;
-      case '4':
-        {
-          return UserPage();
-        }
-        break;
-      default:
-        {
-          return FindPageUI();
-        }
-    }
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        title: Text(
+          '发现',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+      body: FindPageUI(),
+    );
   }
 }

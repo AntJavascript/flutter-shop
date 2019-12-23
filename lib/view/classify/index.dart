@@ -28,7 +28,11 @@ class ClassifyIndex extends StatefulWidget {
   _ClassifyIndexState createState() => _ClassifyIndexState();
 }
 
-class _ClassifyIndexState extends State<ClassifyIndex> {
+class _ClassifyIndexState extends State<ClassifyIndex> with AutomaticKeepAliveClientMixin<ClassifyIndex> {
+
+  @override
+  bool get wantKeepAlive => true;
+
   List<ClassifyData> classifyList = <ClassifyData>[]; // 分类列表
 
   @override
@@ -37,10 +41,12 @@ class _ClassifyIndexState extends State<ClassifyIndex> {
     getCategoryList().then((data) {
       Classify list = Classify.fromJson(data);
       List<ClassifyData> showData = <ClassifyData>[];
+      print('分类列表');
       list.data.forEach((v) => {showData.add(v)});
       setState(() {
         classifyList = list.data;
       });
+      print(classifyList);
     });
     super.initState();
   }
@@ -49,29 +55,10 @@ class _ClassifyIndexState extends State<ClassifyIndex> {
   int bottomNavIndex = 1;
   bool loading = false;
 
-  void _onItemTapped(int index) {
-    if(index == 1) {
-      return;
-    }
-    if (index == 3) {
-      Application.router.navigateTo(context, "/cart");
-      return;
-    }
-    this.setState(() {
-      bottomNavIndex = index;
-    });
-  }
 
   Widget ClassifyUI() {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "分类",
-          style: TextStyle(color: Colors.white),
-        ),
-      ),
-      body: classifyList.length > 0 ? Row(children: <Widget>[
+    return classifyList.length > 0 ? Row(
+      children: <Widget>[
         // 左侧导航分类列表
         Container(
             width: 100.0,
@@ -173,48 +160,21 @@ class _ClassifyIndexState extends State<ClassifyIndex> {
             : Container()
       ]): Center(
         child: CircularProgressIndicator(),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: navBottomItems,
-        currentIndex: 1,
-        onTap: _onItemTapped,
-        type: BottomNavigationBarType.fixed,
-      ),
-    );
+      );
   }
 
   @override
   Widget build(BuildContext context) {
-    switch (this.bottomNavIndex.toString()) {
-      case '0':
-        {
-          return HomePage();
-        }
-        break;
-      case '1':
-        {
-          return ClassifyUI();
-        }
-        break;
-      case '2':
-        {
-          return FindPage();
-        }
-        break;
-      case '3':
-        {
-          return CartPage();
-        }
-        break;
-      case '4':
-        {
-          return UserPage();
-        }
-        break;
-      default:
-        {
-          return ClassifyUI();
-        }
-    }
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        elevation: 0,
+        title: Text(
+          '分类',
+          style: TextStyle(color: Colors.white),
+        ),
+      ),
+      body: ClassifyUI(),
+    );
   }
 }

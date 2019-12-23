@@ -30,7 +30,7 @@ Handler classifyHanderl =Handler(
 // 首页
 Handler homeHanderl =Handler(
   handlerFunc: (BuildContext context,Map<String,List<String>> params){
-    return HomePage();
+    return Home();
   }
 );
 // 商品列表

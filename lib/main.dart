@@ -38,7 +38,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color.fromARGB(255, 64, 207, 160),
       ),
-      home: HomePage(),
+      home: Home(),
     );
   }
 }
