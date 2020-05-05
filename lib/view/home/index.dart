@@ -1,4 +1,5 @@
 import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:native_app/view/home/home_page.dart';
 import 'package:native_app/view/classify/index.dart';
@@ -8,16 +9,15 @@ import 'package:native_app/view/user/index.dart';
 
 import '../../components/NavBottomItems.dart';
 
-import '../../router/application.dart';
-
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
-
+  
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
+  
   var _pageList = [
     HomePage(),
     ClassifyIndex(),

@@ -35,7 +35,10 @@ class CartPage extends StatefulWidget {
   CartPageState createState() => CartPageState();
 }
 
-class CartPageState extends State<CartPage> {
+class CartPageState extends State<CartPage> with AutomaticKeepAliveClientMixin<CartPage> {
+  @override
+  bool get wantKeepAlive => true;
+  
   CartPageState();
 
   // 是否正在请求
@@ -440,7 +443,9 @@ class CartPageState extends State<CartPage> {
                               child: SizedBox(
                                 width: 30.0,
                                 height: 30.0,
-                                child: CircularProgressIndicator(),
+                                child: CircularProgressIndicator(
+                                  strokeWidth: 2,
+                                ),
                               ),
                             ),
                           )

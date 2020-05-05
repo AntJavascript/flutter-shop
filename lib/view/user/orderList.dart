@@ -490,7 +490,9 @@ class OrderPageState extends State<OrderPage> {
               child: SizedBox(
                 width: 30.0,
                 height: 30.0,
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                ),
               ),
             );
           }).toList(),

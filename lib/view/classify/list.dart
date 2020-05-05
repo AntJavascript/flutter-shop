@@ -48,7 +48,8 @@ class ProductListPageState extends State<ProductListPage> {
       this.setState(() => {showName = m.group(0)});
     }
     RegExp idexp = new RegExp(r"(\d+)");
-    Iterable<Match> idmatches = idexp.allMatches(Uri.decodeComponent(this.name));
+    Iterable<Match> idmatches =
+        idexp.allMatches(Uri.decodeComponent(this.name));
 
     for (Match m in idmatches) {
       this.id = m.group(0);
@@ -97,70 +98,89 @@ class ProductListPageState extends State<ProductListPage> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (context, index) {
+                print('productList数据');
+                print(productList);
                 if (productList.length > 0) {
                   var id = productList[index].id;
                   return InkWell(
-                    onTap: () {
-                      Application.router.navigateTo(context, "/productDetail/$id");
-                    },
+                      onTap: () {
+                        Application.router
+                            .navigateTo(context, "/productDetail/$id");
+                      },
                       child: Container(
-                    decoration: new BoxDecoration(
-                        color: Colors.white,
-                        border: Border(
-                            bottom: BorderSide(
-                                width: 1.0, color: Colors.grey[100]))),
-                    child: Row(children: <Widget>[
-                      Container(
-                        child: Image.network(productList[index].thumbnail,
-                            width: 110.0, height: 110.0),
-                        margin: EdgeInsets.all(5.0),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width - 125.0,
-                        child: Column(children: <Widget>[
-                          Text(productList[index].title,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                              style: TextStyle(fontSize: 18.0)),
+                        decoration: new BoxDecoration(
+                            color: Colors.white,
+                            border: Border(
+                                bottom: BorderSide(
+                                    width: 1.0, color: Colors.grey[100]))),
+                        child: Row(children: <Widget>[
                           Container(
-                            margin: EdgeInsets.only(
-                                bottom: 8.0, right: 5.0, top: 8.0),
-                            child: Row(
-                              children: <Widget>[
-                                Text("已售 " +
-                                    productList[index].salesVolume.toString()),
-                                Text(
-                                  productList[index].placeOrigin,
-                                  style: TextStyle(color: Colors.grey[400]),
-                                )
-                              ],
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            ),
+                            child: Image.network(productList[index].thumbnail,
+                                width: 110.0, height: 110.0),
+                            margin: EdgeInsets.all(5.0),
                           ),
                           Container(
-                            child: Row(
-                              children: <Widget>[
-                                Text("￥" + productList[index].price.toString(),
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                        fontSize: 18.0, color: Colors.red)),
-                                Text(
-                                    "￥" +
+                            width: MediaQuery.of(context).size.width - 125.0,
+                            child: Column(children: <Widget>[
+                              Text(productList[index].title,
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
+                                  style: TextStyle(fontSize: 18.0)),
+                              Container(
+                                margin: EdgeInsets.only(
+                                    bottom: 8.0, right: 5.0, top: 8.0),
+                                child: Row(
+                                  children: <Widget>[
+                                    Text("已售 " +
                                         productList[index]
-                                            .orignPrice
-                                            .toString(),
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                        decoration: TextDecoration.lineThrough,
-                                        fontSize: 14.0,
-                                        color: Colors.grey))
-                              ],
-                            ),
+                                            .salesVolume
+                                            .toString()),
+                                    Text(
+                                      productList[index].placeOrigin,
+                                      style: TextStyle(color: Colors.grey[400]),
+                                    )
+                                  ],
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                ),
+                              ),
+                              Container(
+                                child: Row(
+                                  children: <Widget>[
+                                    Text(
+                                        "￥" +
+                                            productList[index].price.toString(),
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            fontSize: 18.0, color: Colors.red)),
+                                    Text(
+                                        "￥" +
+                                            productList[index]
+                                                .orignPrice
+                                                .toString(),
+                                        textAlign: TextAlign.left,
+                                        style: TextStyle(
+                                            decoration:
+                                                TextDecoration.lineThrough,
+                                            fontSize: 14.0,
+                                            color: Colors.grey))
+                                  ],
+                                ),
+                              )
+                            ], mainAxisAlignment: MainAxisAlignment.start),
                           )
                         ], mainAxisAlignment: MainAxisAlignment.start),
-                      )
-                    ], mainAxisAlignment: MainAxisAlignment.start),
-                  ));
+                      ));
+                } else {
+                  return Center(
+                    child: Container(
+                      width: 30.0,
+                      height: 30.0,
+                      child: CircularProgressIndicator(
+                        strokeWidth: 2,
+                      ),
+                    ),
+                  );
                 }
               },
               childCount: _count,

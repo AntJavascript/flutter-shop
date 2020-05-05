@@ -28,6 +28,7 @@ class LoadingDialog extends Dialog {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 new CircularProgressIndicator(
+                  strokeWidth: 2,
                   valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColor),
                 ),
                 new Padding(

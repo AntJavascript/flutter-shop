@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import '../router/application.dart';
 
 class ProductList extends StatelessWidget {
   final String url;
@@ -10,7 +11,11 @@ class ProductList extends StatelessWidget {
   ProductList({this.url, this.name, this.price, this.market, this.id});
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return InkWell(
+      onTap: (){
+        Application.router.navigateTo(context, "/productDetail/$id");
+      },
+      child: Container(
         color: Colors.white,
         padding: EdgeInsets.all(5.0),
         child: new Column(
@@ -49,6 +54,7 @@ class ProductList extends StatelessWidget {
               ],
             )
           ],
-        ));
+        )),
+    );
   }
 }

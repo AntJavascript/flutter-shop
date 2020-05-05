@@ -146,8 +146,7 @@ class OrderMapPageState extends State<OrderMapPage> {
                           style: TextStyle(fontSize: 16.0, color: Colors.grey))
                     ],
                   ),
-                ),
-                Icon(Icons.edit)
+                )
               ],
             ),
           ),

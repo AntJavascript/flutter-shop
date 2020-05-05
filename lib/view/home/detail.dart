@@ -151,7 +151,9 @@ void addCart(attr, cartNumber, id, context) async {
               ),
             ],
           ));
-    } else {}
+    } else {
+      print(addCart.code);
+    }
   } catch (e) {
     print(e);
   }
@@ -191,12 +193,11 @@ void addCart(attr, cartNumber, id, context) async {
     return InkWell(
       child: Container(
         margin: EdgeInsets.only(left: 15.0, right: 7.0, top: 5.0, bottom: 5.0),
-        padding:
-            EdgeInsets.only(left: 12.0, right: 12.0, top: 8.0, bottom: 8.0),
+        padding: EdgeInsets.only(left: 12.0, right: 12.0, top: 8.0, bottom: 8.0),
         decoration: BoxDecoration(
-            color: selectAttr[index - 1] == data
-                ? Theme.of(context).primaryColor
-                : Colors.grey[100]),
+          color: selectAttr[index - 1] == data ? Theme.of(context).primaryColor : Colors.grey[100],
+          borderRadius: BorderRadius.all(Radius.circular(2.0))
+        ),
         child: Text(data,
             style: TextStyle(
                 color: selectAttr[index - 1] == data
@@ -208,7 +209,6 @@ void addCart(attr, cartNumber, id, context) async {
           selectAttr[index - 1] =
               detail.data.specsList[index - 1].checkedCities[subIndex - 1];
         });
-        print('选择的规格：' + this.selectAttr.join(''));
       },
     );
   }
@@ -229,15 +229,17 @@ void addCart(attr, cartNumber, id, context) async {
     data.map((item) {
       List<Widget> stars = [];
       List<Widget> starsIcon = [];
+      // 用户名
       stars.add(Text(
         item.userInfo.phone,
         style: TextStyle(fontSize: 16.0),
       ));
+      // 评价星级
       for (var i = 0; i < item.star; i++) {
         starsIcon.add(Icon(
           Icons.star,
           color: Colors.red,
-          size: 18.0,
+          size: 14.0,
         ));
       }
       stars.add(Row(
@@ -247,16 +249,28 @@ void addCart(attr, cartNumber, id, context) async {
       ));
 
       widets.add(Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
+              // 用户头像
               Row(
                 children: <Widget>[
-                  Image.network(
-                    item.userInfo.face,
-                    width: 45,
-                    height: 45,
+                  Container(
+                    width: 40,
+                    height: 40,
+                    margin: EdgeInsets.only(right: 5.0, left: 8.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                      child: Image.network(
+                        item.userInfo.face,
+                        width: 45,
+                        height: 45,
+                      ),
+                    ),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -268,8 +282,8 @@ void addCart(attr, cartNumber, id, context) async {
             ],
           ),
           Container(
-            margin: EdgeInsets.only(left: 45.0, top: 10.0),
-            child: Text(item.comment, style: TextStyle(fontSize: 16.0)),
+            margin: EdgeInsets.only(left: 58.0, right: 8.0, bottom: 10.0),
+            child: Text(item.comment, style: TextStyle(fontSize: 16.0), maxLines: 3, overflow: TextOverflow.ellipsis,),
           )
         ],
       ));
@@ -311,10 +325,12 @@ void addCart(attr, cartNumber, id, context) async {
                   SliverAppBar(
                     pinned: true,
                     elevation: 0.0,
-                    title: Text(
-                      loading ? detail.data.title : '商品详情',
-                      style: TextStyle(color: Colors.white),
-                    ),
+                    actions: <Widget>[
+                      Icon(
+                        Icons.share,
+                        color: Colors.white,
+                      )
+                    ],
                   ),
                   // 商品图片轮播
                   SliverPadding(
@@ -533,7 +549,6 @@ void addCart(attr, cartNumber, id, context) async {
                           padding: EdgeInsets.all(8.0),
                         ),
                         Container(
-                          padding: EdgeInsets.all(8.0),
                           color: Colors.white,
                           child: this.productComment.length > 0
                               ? commentUI(this.productComment)
@@ -585,7 +600,9 @@ void addCart(attr, cartNumber, id, context) async {
               child: SizedBox(
                 width: 30.0,
                 height: 30.0,
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  strokeWidth: 2,
+                ),
               ),
             ),
         bottomNavigationBar: loading? Container(

@@ -60,7 +60,9 @@ class UserPage extends StatefulWidget {
   UserPageState createState() => UserPageState();
 }
 
-class UserPageState extends State<UserPage> {
+class UserPageState extends State<UserPage> with AutomaticKeepAliveClientMixin<UserPage> {
+  @override
+  bool get wantKeepAlive => true;
   UserPageState();
 
   UserIfo userIfo = null;

@@ -141,6 +141,9 @@ class ConfirmOrderPageState extends State<ConfirmOrderPage> {
           decoration: BoxDecoration(
               border: Border(bottom: BorderSide(color: Colors.grey[100]))),
           margin: EdgeInsets.only(bottom: 20.0, right: 8.0,left: 8.0),
+          padding: EdgeInsets.only(
+            bottom: 8.0
+          ),
           child: Row(
             children: <Widget>[
               Expanded(
@@ -169,6 +172,11 @@ class ConfirmOrderPageState extends State<ConfirmOrderPage> {
                     Expanded(
                       flex: 7,
                       child: Container(
+                        width: 100.0,
+                        height: 100.0,
+                        margin: EdgeInsets.only(
+                          left: 8.0
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
